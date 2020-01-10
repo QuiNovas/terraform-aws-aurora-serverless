@@ -21,6 +21,20 @@ resource "aws_glue_connection" "default" {
 
 
 resource "aws_glue_crawler" "default" {
+  configuration = <<CONFIGURATION
+  {
+   "Version": 1.0,
+   "CrawlerOutput": {
+    "Partitions": {
+      "AddOrUpdateBehavior": "InheritFromTable"
+    },
+    "Tables": {
+      "AddOrUpdateBehavior": "MergeNewColumns"
+    }
+   }
+  }
+  
+CONFIGURATION
   database_name = aws_glue_catalog_database.default.name
   name          = "glue-crawler"
   role          = aws_iam_role.glue_role.arn

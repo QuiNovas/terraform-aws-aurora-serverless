@@ -71,8 +71,7 @@ variable "preferred_maintenance_window" {
 
 variable "port" {
   description = "The port on which to accept connections can be 3306 or 5432"
-  type        = string
-  default     = ""
+  type        = number
 }
 
 variable "apply_immediately" {

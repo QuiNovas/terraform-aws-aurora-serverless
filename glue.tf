@@ -4,7 +4,7 @@ resource "aws_glue_catalog_database" "default" {
 
 resource "aws_glue_connection" "default" {
   connection_properties = {
-    JDBC_CONNECTION_URL = "jdbc:${var.engine}://${aws_rds_cluster.default.endpoint}/${aws_glue_catalog_database.aws_glue_catalog_database.name}"
+    JDBC_CONNECTION_URL = "jdbc:${var.engine}://${aws_rds_cluster.default.endpoint}/${aws_glue_catalog_database.default.name}"
     PASSWORD            = random_string.random_dbpassword.result
     USERNAME            = var.username
   }
@@ -12,9 +12,9 @@ resource "aws_glue_connection" "default" {
   name = "glue-connection"
 
   physical_connection_requirements {
-    availability_zone      = aws_subnet.private.availability_zone
+    availability_zone      = aws_subnet.private.0.availability_zone
     security_group_id_list = aws_security_group.base_sg.id
-    subnet_id              = aws_subnet.private.id
+    subnet_id              = aws_subnet.private.0.id
   }
 }
 
@@ -23,12 +23,13 @@ resource "aws_glue_connection" "default" {
 resource "aws_glue_crawler" "default" {
   database_name = aws_glue_catalog_database.default.name
   name          = "glue-crawler"
-  role          = aws_iam_role.example.arn
+  role          = aws_iam_role.glue_role.arn
 
   jdbc_target {
-    connection_name = "${aws_glue_connection.example.name}"
-    path            = "database-name/%"
+    connection_name = aws_glue_connection.default.name
+    path            = "${aws_glue_catalog_database.default.name}/%"
   }
+  schedule = "cron(0 12 * * ? *)"
 }
 
 
@@ -74,7 +75,14 @@ data "aws_iam_policy_document" "rds_crawler" {
       "*",
     ]
 
-    sid = "AllowReadwriteAccess"
+    sid = "AllowRDSAccess"
   }
 
+}
+
+
+resource "aws_iam_role_policy" "rds_crawler" {
+  name   = "rdscrawler"
+  policy = data.aws_iam_policy_document.rds_crawler.json
+  role   = aws_iam_role.glue_role.id
 }

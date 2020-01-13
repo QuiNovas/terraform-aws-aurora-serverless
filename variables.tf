@@ -1,8 +1,8 @@
 
-variable "availability_zones" {
+/*variable "availability_zones" {
   description = "list of avaiability zones for the subnets"
   type        = list(string)
-}
+}*/
 
 variable "cidr_block" {
   description = "The CIDR block for VPC"
@@ -136,7 +136,6 @@ variable "engine" {
 variable "engine_version" {
   description = "Aurora database engine version."
   type        = string
-  default     = "5.6.10a"
 }
 
 variable "replica_scale_enabled" {

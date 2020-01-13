@@ -7,7 +7,7 @@ resource "aws_rds_cluster" "default" {
   master_username                     = var.username
   final_snapshot_identifier           = var.final_snapshot_identifier_prefix
   skip_final_snapshot                 = var.skip_final_snapshot
-  availability_zones                  = var.availability_zones
+  availability_zones                  = data.aws_availability_zones.available.names
   backtrack_window                    = var.backtrack_window
   backup_retention_period             = var.backup_retention_period
   preferred_backup_window             = var.preferred_backup_window

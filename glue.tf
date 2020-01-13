@@ -13,7 +13,8 @@ resource "aws_glue_connection" "default" {
 
   physical_connection_requirements {
     availability_zone      = aws_subnet.private.0.availability_zone
-    security_group_id_list = aws_security_group.base_sg.id
+    security_group_id_list =["aws_security_group.base_sg.id",
+    ]
     subnet_id              = aws_subnet.private.0.id
   }
 }

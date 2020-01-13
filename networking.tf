@@ -6,16 +6,15 @@ resource "aws_vpc" "vpc" {
 
 }
 
-resource "random_shuffle" "az" {
-  input        = var.availability_zones
-  result_count = local.subnets_count
+data "aws_availability_zones" "available" {
+
 }
 
 
 resource "aws_subnet" "private" {
   vpc_id            = aws_vpc.vpc.id
   count             = local.subnets_count
-  availability_zone = element(random_shuffle.az.result, count.index)
+  availability_zone = data.aws_availability_zones.available.names[count.index]
   cidr_block        = local.private_subnets[count.index]
 
   tags = {
@@ -28,7 +27,7 @@ resource "aws_subnet" "public" {
 
   vpc_id            = aws_vpc.vpc.id
   cidr_block        = local.public_subnets[0]
-  availability_zone = element(random_shuffle.az.result, 1)
+  availability_zone = data.aws_availability_zones.available.names[0]
 
   tags = {
 

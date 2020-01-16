@@ -1,5 +1,5 @@
 resource "aws_glue_catalog_database" "default" {
-  name = aws_rds_cluster.default.cluster_identifier
+  name = aws_rds_cluster.default.database_name
 }
 
 resource "aws_glue_connection" "default" {

@@ -285,3 +285,9 @@ variable "timeout_action" {
   type        = string
   default     = "RollbackCapacityChange"
 }
+
+variable "install_aws_cli" {
+  default     = false
+  description = "Installs the AWS CLI module-local. AWS CLI is required to run this module."
+  type        = bool
+}

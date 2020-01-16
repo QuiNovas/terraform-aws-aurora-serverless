@@ -4,7 +4,7 @@ resource "aws_glue_catalog_database" "default" {
 
 resource "aws_glue_connection" "default" {
   connection_properties = {
-    JDBC_CONNECTION_URL = "jdbc:${var.engine}://${aws_rds_cluster.default.endpoint}:${aws_rds_cluster.default.port}/${aws_rds_cluster.default.database_name}"
+    JDBC_CONNECTION_URL = "jdbc:${var.engine == "aurora-mysql" ? "mysql":"postgresql" }://${aws_rds_cluster.default.endpoint}:${aws_rds_cluster.default.port}/${aws_rds_cluster.default.database_name}"
     PASSWORD            = random_string.random_masterpassword.result
     USERNAME            = var.username
   }

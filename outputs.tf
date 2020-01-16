@@ -40,3 +40,6 @@ output "hosted_zone_id" {
   value = aws_rds_cluster.default.hosted_zone_id
 }
 
+output "port" {
+  value = aws_rds_cluster.default.port
+}

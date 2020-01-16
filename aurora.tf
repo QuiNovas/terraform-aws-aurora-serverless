@@ -13,6 +13,7 @@ resource "aws_rds_cluster" "default" {
   preferred_backup_window             = var.preferred_backup_window
   preferred_maintenance_window        = var.preferred_maintenance_window
   vpc_security_group_ids              = [aws_security_group.base_sg.id,
+                                         var.vpc_security_group_ids,
   ]
   snapshot_identifier                 = var.snapshot_identifier
   global_cluster_identifier           = var.global_cluster_identifier
@@ -57,5 +58,3 @@ resource "null_resource" "update_aurora_cluster" {
     command = "${local.aws_cli_command} rds modify-db-cluster --db-cluster-identifier ${aws_rds_cluster.default.cluster_identifier} --enable-http-endpoint"
   }
 }
-
-aws_security_group.base_sg.id

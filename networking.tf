@@ -6,15 +6,16 @@ resource "aws_vpc" "vpc" {
 
 }
 
-data "aws_availability_zones" "available" {
-
+resource "random_shuffle" "az" {
+  input        = var.availability_zones
+  result_count = local.subnets_count
 }
 
 
 resource "aws_subnet" "private" {
   vpc_id            = aws_vpc.vpc.id
   count             = local.subnets_count
-  availability_zone = data.aws_availability_zones.available.names[count.index]
+  availability_zone = element(random_shuffle.az.result, count.index)
   cidr_block        = local.private_subnets[count.index]
 
   tags = {
@@ -24,10 +25,10 @@ resource "aws_subnet" "private" {
 
 
 resource "aws_subnet" "public" {
-
+  count = 1
   vpc_id            = aws_vpc.vpc.id
   cidr_block        = local.public_subnets[0]
-  availability_zone = data.aws_availability_zones.available.names[0]
+  availability_zone = element(random_shuffle.az.result, count.index)
 
   tags = {
 
@@ -67,7 +68,7 @@ resource "aws_route" "public_internet_gateway" {
 }
 
 resource "aws_route_table_association" "public" {
-  subnet_id      = aws_subnet.public.id
+  subnet_id      = aws_subnet.public.0.id
   route_table_id = aws_route_table.public.id
 }
 
@@ -84,7 +85,7 @@ resource "aws_nat_gateway" "ngw" {
 
 
   allocation_id = aws_eip.nat.id
-  subnet_id     = aws_subnet.public.id
+  subnet_id     = aws_subnet.public.0.id
 
 
   tags = {
@@ -148,7 +149,7 @@ resource "aws_security_group" "base_sg" {
   vpc_id = aws_vpc.vpc.id
 
   tags = {
-    Name = "${var.name}-var.name"
+    Name = "${var.name}-default-sg"
   }
 }
 
@@ -159,3 +160,7 @@ provider "aws" {
   region = "us-east-1"
 }
 
+resource "aws_db_subnet_group" "default" {
+  name       = "${var.name}-main"
+  subnet_ids = [aws_subnet.private.0.id , aws_subnet.private.1.id, aws_subnet.private.2.id ]
+}

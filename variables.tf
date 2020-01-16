@@ -1,8 +1,8 @@
 
-/*variable "availability_zones" {
+variable "availability_zones" {
   description = "list of avaiability zones for the subnets"
   type        = list(string)
-}*/
+}
 
 variable "cidr_block" {
   description = "The CIDR block for VPC"
@@ -67,11 +67,6 @@ variable "preferred_maintenance_window" {
   description = "When to perform DB maintenance"
   type        = string
   default     = "sun:05:00-sun:06:00"
-}
-
-variable "port" {
-  description = "The port on which to accept connections can be 3306 or 5432"
-  type        = number
 }
 
 variable "apply_immediately" {
@@ -230,12 +225,6 @@ variable "vpc_security_group_ids" {
   description = "List of VPC security groups to associate to the cluster in addition to the SG we create in this module"
   type        = list(string)
   default     = []
-}
-
-variable "db_subnet_group_name" {
-  description = "The existing subnet group name to use"
-  type        = string
-  default     = ""
 }
 
 variable "predefined_metric_type" {

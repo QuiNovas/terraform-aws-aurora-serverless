@@ -33,7 +33,7 @@ output "database_master_username" {
 }
 
 output "database_master_password" {
-  value = aws_rds_cluster.default.master_password
+  value = random_string.random_masterpassword.result
 }
 
 output "hosted_zone_id" {

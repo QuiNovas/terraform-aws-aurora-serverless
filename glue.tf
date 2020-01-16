@@ -9,7 +9,7 @@ resource "aws_glue_connection" "default" {
     USERNAME            = var.username
   }
 
-  name = "glue-connection"
+  name = "${var.name}-glue-connection"
 
   physical_connection_requirements {
     availability_zone      = aws_subnet.private.0.availability_zone
@@ -37,7 +37,7 @@ resource "aws_glue_crawler" "default" {
   
 CONFIGURATION
   database_name = aws_glue_catalog_database.default.name
-  name          = "glue-crawler"
+  name          = "${var.name}-glue-crawler"
   role          = aws_iam_role.glue_role.arn
 
   jdbc_target {
@@ -58,10 +58,10 @@ resource "random_string" "random_dbpassword" {
 
 resource "aws_iam_role" "glue_role" {
   assume_role_policy = data.aws_iam_policy_document.aws_glue_assume_role.json
-  name               = "glue-default"
+  name               = "${var.name}-glue-default"
 }
 
-resource "aws_iam_role_policy_attachment" "aws_glue_thynkhealth" {
+resource "aws_iam_role_policy_attachment" "aws_glue" {
   role       = aws_iam_role.glue_role.id
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSGlueServiceRole"
 }
@@ -97,7 +97,7 @@ data "aws_iam_policy_document" "rds_crawler" {
 
 
 resource "aws_iam_role_policy" "rds_crawler" {
-  name   = "rdscrawler"
+  name   = "${var.name}-rdscrawler"
   policy = data.aws_iam_policy_document.rds_crawler.json
   role   = aws_iam_role.glue_role.id
 }

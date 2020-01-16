@@ -216,12 +216,6 @@ variable "global_cluster_identifier" {
   default     = ""
 }
 
-variable "engine_mode" {
-  description = "The database engine mode. Valid values: global, parallelquery, provisioned, serverless."
-  type        = string
-  default     = "provisioned"
-}
-
 variable "replication_source_identifier" {
   description = "ARN of a source DB cluster or DB instance if this DB cluster is to be created as a Read Replica."
   default     = ""

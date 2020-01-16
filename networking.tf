@@ -1,7 +1,7 @@
 resource "aws_vpc" "vpc" {
   cidr_block = local.cidr_block
   tags = {
-    Name = var.name
+    Name = "${var.name}-vpc"
   }
 
 }
@@ -18,7 +18,7 @@ resource "aws_subnet" "private" {
   cidr_block        = local.private_subnets[count.index]
 
   tags = {
-    Name = "private-subnet-${count.index}"
+    Name = "${var.name}-private-subnet-${count.index}"
   }
 }
 
@@ -31,7 +31,7 @@ resource "aws_subnet" "public" {
 
   tags = {
 
-    Name = "public-subnet"
+    Name = "${var.name}-public-subnet"
 
   }
 
@@ -42,7 +42,7 @@ resource "aws_route_table" "public" {
   vpc_id = aws_vpc.vpc.id
 
   tags = {
-    Name = "public-route-table"
+    Name = "${var.name}-public-route-table"
   }
 
 }
@@ -51,7 +51,7 @@ resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.vpc.id
 
   tags = {
-    Name = "public-igw"
+    Name = "${var.name}-public-igw"
   }
 }
 
@@ -76,7 +76,7 @@ resource "aws_eip" "nat" {
   vpc = true
 
   tags = {
-    Name = "aws-nat"
+    Name = "${var.name}-aws-nat"
   }
 }
 
@@ -88,7 +88,7 @@ resource "aws_nat_gateway" "ngw" {
 
 
   tags = {
-    Name = "public-nat-gw"
+    Name = "${var.name}-public-nat-gw"
   }
 
   depends_on = [aws_internet_gateway.igw]
@@ -111,7 +111,7 @@ resource "aws_route_table" "private" {
   vpc_id = aws_vpc.vpc.id
 
   tags = {
-    Name = "private-rt-${count.index}"
+    Name = "${var.name}-private-rt-${count.index}"
   }
 }
 
@@ -148,7 +148,7 @@ resource "aws_security_group" "base_sg" {
   vpc_id = aws_vpc.vpc.id
 
   tags = {
-    Name = var.name
+    Name = "${var.name}-var.name"
   }
 }
 

@@ -12,9 +12,9 @@ resource "aws_rds_cluster" "default" {
   backup_retention_period             = var.backup_retention_period
   preferred_backup_window             = var.preferred_backup_window
   preferred_maintenance_window        = var.preferred_maintenance_window
-  vpc_security_group_ids              = [aws_security_group.base_sg.id,
+  vpc_security_group_ids              = flatten([aws_security_group.base_sg.id,
                                          var.vpc_security_group_ids,
-  ]
+  ])
   snapshot_identifier                 = var.snapshot_identifier
   global_cluster_identifier           = var.global_cluster_identifier
   storage_encrypted                   = var.storage_encrypted

@@ -153,13 +153,6 @@ resource "aws_security_group" "base_sg" {
   }
 }
 
-
-
-
-provider "aws" {
-  region = "us-east-1"
-}
-
 resource "aws_db_subnet_group" "default" {
   name       = "${var.name}-main"
   subnet_ids = [aws_subnet.private.0.id , aws_subnet.private.1.id, aws_subnet.private.2.id ]

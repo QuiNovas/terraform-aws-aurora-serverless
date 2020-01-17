@@ -55,6 +55,6 @@ resource "null_resource" "update_aurora_cluster" {
   depends_on = [null_resource.install_aws_cli]
 
   provisioner "local-exec" {
-    command = "${local.aws_cli_command} rds modify-db-cluster --db-cluster-identifier ${aws_rds_cluster.default.cluster_identifier} --enable-http-endpoint"
+    command = "${local.aws_cli_command} rds modify-db-cluster --db-cluster-identifier ${aws_rds_cluster.default.id} --enable-http-endpoint"
   }
 }

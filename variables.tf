@@ -24,7 +24,7 @@ variable "publicly_accessible" {
 variable "database_name" {
   description = "Name for an automatically created database on cluster creation"
   type        = string
-  default     = ""
+ default     = ""
 }
 
 variable "username" {

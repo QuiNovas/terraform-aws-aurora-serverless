@@ -1,10 +1,10 @@
 resource "aws_glue_catalog_database" "default" {
-  name = aws_rds_cluster.default.database_name
+  name = aws_rds_cluster.default.database_name 
 }
 
 resource "aws_glue_connection" "default" {
   connection_properties = {
-    JDBC_CONNECTION_URL = "jdbc:${var.engine == "aurora-mysql" ? "mysql":"postgresql" }://${aws_rds_cluster.default.endpoint}:${aws_rds_cluster.default.port}/${aws_rds_cluster.default.database_name}"
+    JDBC_CONNECTION_URL = "jdbc:${var.engine == "aurora-mysql" ? "mysql":"postgresql" }://${aws_rds_cluster.default.endpoint}:${aws_rds_cluster.default.port}/${aws_rds_cluster.default.database_name }"
     PASSWORD            = random_string.random_masterpassword.result
     USERNAME            = var.username
   }
@@ -45,15 +45,6 @@ CONFIGURATION
     path            = "${aws_glue_catalog_database.default.name}/%"
   }
   schedule = "cron(0 12 * * ? *)"
-}
-
-
-resource "random_string" "random_dbpassword" {
-  length           = 31
-  min_upper        = 1
-  min_lower        = 1
-  min_numeric      = 1
-  override_special = "!@#$%^&*()_-+="
 }
 
 resource "aws_iam_role" "glue_role" {

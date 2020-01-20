@@ -1,10 +1,10 @@
 resource "aws_glue_catalog_database" "default" {
-  name = aws_rds_cluster.default.database_name 
+  name = aws_rds_cluster.default.database_name
 }
 
 resource "aws_glue_connection" "default" {
   connection_properties = {
-    JDBC_CONNECTION_URL = "jdbc:${var.engine == "aurora-mysql" ? "mysql":"postgresql" }://${aws_rds_cluster.default.endpoint}:${aws_rds_cluster.default.port}/${aws_rds_cluster.default.database_name }"
+    JDBC_CONNECTION_URL = "jdbc:${var.engine == "aurora-mysql" ? "mysql" : "postgresql"}://${aws_rds_cluster.default.endpoint}:${aws_rds_cluster.default.port}/${aws_rds_cluster.default.database_name}"
     PASSWORD            = random_string.random_masterpassword.result
     USERNAME            = var.username
   }
@@ -12,10 +12,10 @@ resource "aws_glue_connection" "default" {
   name = "${var.name}-glue-connection"
 
   physical_connection_requirements {
-    availability_zone      = aws_subnet.private.0.availability_zone
-    security_group_id_list =[aws_security_group.base_sg.id,
+    availability_zone = aws_subnet.private.0.availability_zone
+    security_group_id_list = [aws_security_group.base_sg.id,
     ]
-    subnet_id              = aws_subnet.private.0.id
+    subnet_id = aws_subnet.private.0.id
   }
 }
 

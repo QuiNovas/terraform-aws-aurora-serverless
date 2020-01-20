@@ -25,7 +25,7 @@ resource "aws_subnet" "private" {
 
 
 resource "aws_subnet" "public" {
-  count = 1
+  count             = 1
   vpc_id            = aws_vpc.vpc.id
   cidr_block        = local.public_subnets[0]
   availability_zone = element(random_shuffle.az.result, count.index)
@@ -155,5 +155,5 @@ resource "aws_security_group" "base_sg" {
 
 resource "aws_db_subnet_group" "default" {
   name       = "${var.name}-main"
-  subnet_ids = [aws_subnet.private.0.id , aws_subnet.private.1.id, aws_subnet.private.2.id ]
+  subnet_ids = [aws_subnet.private.0.id, aws_subnet.private.1.id, aws_subnet.private.2.id]
 }

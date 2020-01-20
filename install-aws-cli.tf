@@ -8,4 +8,7 @@ curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "${path.module}/aws
 EOH
 
   }
+  triggers = {
+    cluster_id = aws_rds_cluster.default.id
+  }
 }

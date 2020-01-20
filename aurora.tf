@@ -1,19 +1,19 @@
 resource "aws_rds_cluster" "default" {
-  cluster_identifier                  = "${var.name}-cluster"
-  copy_tags_to_snapshot               = var.copy_tags_to_snapshot
-  database_name                       = var.database_name
-  deletion_protection                 = var.deletion_protection
-  master_password                     = random_string.random_masterpassword.result
-  master_username                     = var.username
-  final_snapshot_identifier           = var.final_snapshot_identifier_prefix
-  skip_final_snapshot                 = var.skip_final_snapshot
-  availability_zones                  = random_shuffle.az.result
-  backtrack_window                    = var.backtrack_window
-  backup_retention_period             = var.backup_retention_period
-  preferred_backup_window             = var.preferred_backup_window
-  preferred_maintenance_window        = var.preferred_maintenance_window
-  vpc_security_group_ids              = flatten([aws_security_group.base_sg.id,
-                                         var.vpc_security_group_ids,
+  cluster_identifier           = "${var.name}-cluster"
+  copy_tags_to_snapshot        = var.copy_tags_to_snapshot
+  database_name                = var.database_name
+  deletion_protection          = var.deletion_protection
+  master_password              = random_string.random_masterpassword.result
+  master_username              = var.username
+  final_snapshot_identifier    = var.final_snapshot_identifier_prefix
+  skip_final_snapshot          = var.skip_final_snapshot
+  availability_zones           = random_shuffle.az.result
+  backtrack_window             = var.backtrack_window
+  backup_retention_period      = var.backup_retention_period
+  preferred_backup_window      = var.preferred_backup_window
+  preferred_maintenance_window = var.preferred_maintenance_window
+  vpc_security_group_ids = flatten([aws_security_group.base_sg.id,
+    var.vpc_security_group_ids,
   ])
   snapshot_identifier                 = var.snapshot_identifier
   global_cluster_identifier           = var.global_cluster_identifier

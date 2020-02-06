@@ -10,5 +10,6 @@ EOH
   }
   triggers = {
     cluster_id = aws_rds_cluster.default.id
+    uuid                    = uuid()
   }
 }

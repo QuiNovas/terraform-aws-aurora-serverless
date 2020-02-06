@@ -57,4 +57,8 @@ resource "null_resource" "update_aurora_cluster" {
   provisioner "local-exec" {
     command = "${local.aws_cli_command} rds modify-db-cluster --db-cluster-identifier ${aws_rds_cluster.default.id} --enable-http-endpoint"
   }
+    triggers = {
+    cluster_id = aws_rds_cluster.default.id
+    uuid                    = uuid()
+  }
 }

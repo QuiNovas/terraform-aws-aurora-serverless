@@ -25,7 +25,7 @@ resource "aws_rds_cluster" "default" {
   kms_key_id                          = var.kms_key_id
   iam_roles                           = var.iam_roles
   iam_database_authentication_enabled = var.iam_database_authentication_enabled
-  enable_http_endpoint = true
+  enable_http_endpoint                = true
   engine                              = var.engine
   engine_mode                         = "serverless"
   scaling_configuration {

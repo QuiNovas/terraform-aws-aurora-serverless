@@ -25,6 +25,7 @@ resource "aws_rds_cluster" "default" {
   kms_key_id                          = var.kms_key_id
   iam_roles                           = var.iam_roles
   iam_database_authentication_enabled = var.iam_database_authentication_enabled
+  enable_http_endpoint                = true
   engine                              = var.engine
   engine_mode                         = "serverless"
   scaling_configuration {
@@ -48,17 +49,4 @@ resource "random_string" "random_masterpassword" {
   min_lower        = 1
   min_numeric      = 1
   override_special = "!#$%^&*()_-+="
-}
-
-
-resource "null_resource" "update_aurora_cluster" {
-  depends_on = [null_resource.install_aws_cli]
-
-  provisioner "local-exec" {
-    command = "${local.aws_cli_command} rds modify-db-cluster --db-cluster-identifier ${aws_rds_cluster.default.id} --enable-http-endpoint"
-  }
-    triggers = {
-    cluster_id = aws_rds_cluster.default.id
-    uuid                    = uuid()
-  }
 }

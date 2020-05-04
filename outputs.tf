@@ -6,7 +6,6 @@ output "vpc_id" {
   value = aws_vpc.vpc.id
 }
 
-
 output "cluster_arn" {
   value = aws_rds_cluster.default.arn
 }
@@ -18,7 +17,6 @@ output "cluster_id" {
 output "rds_instance_endpoint" {
   value = aws_rds_cluster.default.endpoint
 }
-
 
 output "cluster_reader_endpoint" {
   value = aws_rds_cluster.default.reader_endpoint

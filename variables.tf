@@ -1,24 +1,11 @@
-
-variable "availability_zones" {
-  description = "list of avaiability zones for the subnets"
-  type        = list(string)
-}
-
 variable "cidr_block" {
   description = "The CIDR block for VPC"
   type        = string
-  default     = "192.168.0.0/20"
 }
 
 variable "name" {
   description = "The name of resources created, used either directly or as a prefix."
   type        = string
-}
-
-variable "publicly_accessible" {
-  description = "Whether the DB should have a public IP address"
-  type        = bool
-  default     = false
 }
 
 variable "database_name" {
@@ -256,38 +243,44 @@ variable "security_group_description" {
   default     = "Managed by Terraform"
 }
 
-variable "auto_pause" {
-  description = "Whether to enable automatic pause. A DB cluster can be paused only when it's idle (it has no connections)."
-  type        = bool
-  default     = true
+variable "allowed_security_groups" {
+  description = "A list of Security Group ID's to allow access to."
+  type        = list(string)
+  default     = []
 }
 
-variable "max_capacity" {
-  description = "The maximum capacity. The maximum capacity must be greater than or equal to the minimum capacity"
-  type        = number
-  default     = 16
+variable "allowed_cidr_blocks" {
+  description = "A list of CIDR blocks which are allowed to access the database"
+  type        = list(string)
+  default     = []
 }
 
-variable "min_capacity" {
-  description = "The minimum capacity. The minimum capacity must be lesser than or equal to the maximum capacity"
-  type        = number
-  default     = 2
+variable "public_subnets" {
+  description = "A list of public subnets inside the RDS VPC"
+  type        = list(string)
+  default     = []
 }
 
-variable "seconds_until_auto_pause" {
-  description = "the time, in seconds, before an Aurora DB cluster in serverless mode is paused. "
-  type        = number
-  default     = 300
+variable "private_subnets" {
+  description = "A list of private subnets inside the RDS VPC"
+  type        = list(string)
+  default     = []
 }
 
-variable "timeout_action" {
-  description = "The action to take when the timeout is reached. Valid values: ForceApplyCapacityChange, RollbackCapacityChange."
+variable "azs" {
+  description = "A list of availability zones for the subnets"
+  type        = list(string)
+  default     = []
+}
+
+variable "glue_etl" {
+  description = "Enable to create glue connection with the aurora"
   type        = string
-  default     = "RollbackCapacityChange"
+  default     = false
 }
 
-variable "install_aws_cli" {
-  default     = false
-  description = "Installs the AWS CLI module-local. AWS CLI is required to run this module."
-  type        = bool
+variable "enable_http_endpoint" {
+  description = "Enable http endpoint"
+  type        = string
+  default     = true
 }

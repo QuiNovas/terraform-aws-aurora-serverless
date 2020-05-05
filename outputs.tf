@@ -1,9 +1,25 @@
 output "vpc_arn" {
-  value = aws_vpc.vpc.arn
+  value = module.vpc.vpc_arn
 }
 
 output "vpc_id" {
-  value = aws_vpc.vpc.id
+  value = module.vpc.vpc_id
+}
+
+output "public_subnet_arns" {
+  value = module.vpc.public_subnet_arns
+}
+
+output "public_subnets" {
+  value = module.vpc.public_subnets
+}
+
+output "private_subnet_arns" {
+  value = module.vpc.private_subnet_arns
+}
+
+output "private_subnets" {
+  value = module.vpc.private_subnets
 }
 
 output "cluster_arn" {
@@ -40,4 +56,8 @@ output "hosted_zone_id" {
 
 output "port" {
   value = aws_rds_cluster.default.port
+}
+
+output "security_group_id" {
+  value = aws_security_group.this.id
 }

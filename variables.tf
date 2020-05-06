@@ -1,8 +1,3 @@
-variable "cidr_block" {
-  description = "The CIDR block for VPC"
-  type        = string
-}
-
 variable "name" {
   description = "The name of resources created, used either directly or as a prefix."
   type        = string
@@ -75,15 +70,15 @@ variable "auto_minor_version_upgrade" {
 }
 
 variable "db_parameter_group_name" {
-  description = "The name of a DB parameter group to use"
+  description = "The name of a DB parameter group to use. Default groups are created if not provided"
   type        = string
-  default     = null
+  default     = ""
 }
 
 variable "db_cluster_parameter_group_name" {
-  description = "The name of a DB Cluster parameter group to use"
+  description = "The name of a DB Cluster parameter group to use. Default groups are created if not provided"
   type        = string
-  default     = null
+  default     = ""
 }
 
 variable "scaling_configuration" {
@@ -237,12 +232,6 @@ variable "iam_roles" {
   default     = []
 }
 
-variable "security_group_description" {
-  description = "The description of the security group. If value is set to empty string it will contain cluster name in the description."
-  type        = string
-  default     = "Managed by Terraform"
-}
-
 variable "allowed_security_groups" {
   description = "A list of Security Group ID's to allow access to."
   type        = list(string)
@@ -251,24 +240,6 @@ variable "allowed_security_groups" {
 
 variable "allowed_cidr_blocks" {
   description = "A list of CIDR blocks which are allowed to access the database"
-  type        = list(string)
-  default     = []
-}
-
-variable "public_subnets" {
-  description = "A list of public subnets inside the RDS VPC"
-  type        = list(string)
-  default     = []
-}
-
-variable "private_subnets" {
-  description = "A list of private subnets inside the RDS VPC"
-  type        = list(string)
-  default     = []
-}
-
-variable "azs" {
-  description = "A list of availability zones for the subnets"
   type        = list(string)
   default     = []
 }
@@ -284,3 +255,16 @@ variable "enable_http_endpoint" {
   type        = string
   default     = true
 }
+
+variable "vpc_config" {
+  description = "Map of these attributes is required. cidr_block(string), private_subnets(list(string)), public_subnets(list(string)), azs(list of Avaliability zones(string))"
+  type        = any
+}
+
+/* Example
+  vpc_config = {
+    azs             = ["us-east-1a", "us-east-1b", "us-east-1c"]
+    private_subnets = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
+    public_subnets  = ["10.0.101.0/24"]
+    cidr_block      = "10.0.0.0/16"
+  }*/

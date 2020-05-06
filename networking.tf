@@ -4,23 +4,21 @@ module "vpc" {
 
   name = "${var.name}-vpc"
 
-  cidr = var.cidr_block
+  cidr = lookup(var.vpc_config, "cidr_block")
 
-  azs             = var.azs
-  private_subnets = var.private_subnets
-  public_subnets  = var.public_subnets
+  azs             = lookup(var.vpc_config, "azs")
+  private_subnets = lookup(var.vpc_config, "private_subnets")
+  public_subnets  = lookup(var.vpc_config, "public_subnets")
 
   enable_nat_gateway     = true
   single_nat_gateway     = true
   one_nat_gateway_per_az = false
 
-  vpc_tags = {
-    Name = "${var.name}-vpc"
-  }
+  tags = var.tags
 }
 
 resource "aws_db_subnet_group" "this" {
-  name       = "${var.name}-aurora-cluster"
+  name       = "${var.name}-cluster"
   subnet_ids = module.vpc.private_subnets
   tags = merge(var.tags, {
     Name = var.name
@@ -31,7 +29,7 @@ resource "aws_security_group" "this" {
   name_prefix = "${var.name}-"
   vpc_id      = module.vpc.vpc_id
 
-  description = var.security_group_description == "" ? "Control traffic to/from RDS Aurora ${var.name}" : var.security_group_description
+  description = "Control in/out Traffic RDS Aurora ${var.name}"
 
   tags = merge(var.tags, {
     Name = var.name

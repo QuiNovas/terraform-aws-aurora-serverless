@@ -7,7 +7,7 @@ resource "aws_rds_cluster" "default" {
   master_username              = var.username
   final_snapshot_identifier    = var.final_snapshot_identifier_prefix
   skip_final_snapshot          = var.skip_final_snapshot
-  availability_zones           = var.azs
+  availability_zones           = lookup(var.vpc_config, "azs")
   backtrack_window             = var.backtrack_window
   backup_retention_period      = var.backup_retention_period
   preferred_backup_window      = var.preferred_backup_window
@@ -45,7 +45,9 @@ resource "aws_rds_cluster" "default" {
   engine_version                  = var.engine_version
   source_region                   = var.source_region
   enabled_cloudwatch_logs_exports = var.enabled_cloudwatch_logs_exports
-  tags                            = var.tags
+  tags = merge(var.tags, {
+    Name = var.name
+  })
 }
 
 resource "random_string" "random_masterpassword" {

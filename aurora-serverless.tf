@@ -9,7 +9,7 @@ resource "aws_rds_cluster" "default" {
   db_cluster_parameter_group_name     = var.db_cluster_parameter_group_name
   db_subnet_group_name                = module.vpc.database_subnet_group
   deletion_protection                 = var.deletion_protection
-  enable_http_endpoint                = true
+  enable_http_endpoint                = var.enable_http_endpoint
   enabled_cloudwatch_logs_exports     = var.enabled_cloudwatch_logs_exports
   engine                              = var.engine
   engine_mode                         = "serverless"

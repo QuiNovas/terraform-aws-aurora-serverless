@@ -15,7 +15,7 @@ output "cluster_reader_endpoint" {
 
 output "database_master_password" {
   description = "Master password"
-  value       = random_string.random_masterpassword.result
+  value       = random_string.random_master_password.result
 }
 
 output "database_master_username" {

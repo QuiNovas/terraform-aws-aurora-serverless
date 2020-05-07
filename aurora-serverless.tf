@@ -19,7 +19,7 @@ resource "aws_rds_cluster" "default" {
   iam_database_authentication_enabled = var.iam_database_authentication_enabled
   iam_roles                           = var.iam_roles
   kms_key_id                          = var.kms_key_id
-  master_password                     = random_string.random_masterpassword.result
+  master_password                     = random_string.random_master_password.result
   master_username                     = var.username
   preferred_backup_window             = var.preferred_backup_window
   preferred_maintenance_window        = var.preferred_maintenance_window
@@ -54,7 +54,7 @@ resource "aws_rds_cluster" "default" {
 }
 
 
-resource "random_string" "random_masterpassword" {
+resource "random_string" "random_master_password" {
   length           = 31
   min_upper        = 1
   min_lower        = 1

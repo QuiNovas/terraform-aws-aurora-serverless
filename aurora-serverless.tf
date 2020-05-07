@@ -52,7 +52,6 @@ resource "aws_rds_cluster" "default" {
   ])
 }
 
-
 resource "random_string" "random_master_password" {
   length           = 31
   min_upper        = 1

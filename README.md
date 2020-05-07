@@ -2,7 +2,7 @@
 
 This module is used to create serverless aws aurora cluster with either aurora-mysql or aurora-postgresql as database engine. 
 
-Atleast 3 subnet CIDR's need to be passed in, to create private subnets with no internet access to and fro. This module also creates a separate VPC with subnets passed.
+This module creates a VPC. Atleast 3 subnet CIDR's need to be passed in, to create private subnets with no internet access to and fro.
 
 **Note:**
 Currently Postgresql 10.7 and MySQL 5.6.10a are only specific engine versions supported for serverless.
@@ -17,7 +17,7 @@ module "aurora_serverless" {
   engine                  = "aurora-postgresql"
   engine_version          = "10.7"
   monitoring_interval     = 10
-  name                    = "admin"
+  name                    = "test-postgresql"
   replica_scale_enabled   = false
 
   scaling_configuration = {

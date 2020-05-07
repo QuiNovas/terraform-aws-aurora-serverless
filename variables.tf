@@ -246,7 +246,6 @@ variable "tags" {
   default     = {}
 }
 
-
 variable "username" {
   description = "Master DB username"
   type        = string

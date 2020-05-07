@@ -1,4 +1,4 @@
-## Currently only PostgreSQL 10.7 and MySQL 5.6 Engines are supported #######################
+## Currently only PostgreSQL 10.7 and MySQL 5.6.10a Engines are supported #######################
 ## These are the default parameter groups (postgresql10 and aurora5.6) that may be created ##
 
 resource "aws_db_parameter_group" "aurora_db_postgres_parameter_group" {

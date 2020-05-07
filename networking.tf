@@ -4,25 +4,12 @@ module "vpc" {
 
   name = "${var.name}-vpc"
 
-  cidr = lookup(var.vpc_config, "cidr_block")
+  cidr                         = lookup(var.vpc_config, "cidr_block")
+  create_database_subnet_group = true
+  azs                          = lookup(var.vpc_config, "azs")
+  database_subnets             = lookup(var.vpc_config, "database_subnets")
+  tags                         = var.tags
 
-  azs             = lookup(var.vpc_config, "azs")
-  private_subnets = lookup(var.vpc_config, "private_subnets")
-  public_subnets  = lookup(var.vpc_config, "public_subnets")
-
-  enable_nat_gateway     = true
-  single_nat_gateway     = true
-  one_nat_gateway_per_az = false
-
-  tags = var.tags
-}
-
-resource "aws_db_subnet_group" "this" {
-  name       = "${var.name}-cluster"
-  subnet_ids = module.vpc.private_subnets
-  tags = merge(var.tags, {
-    Name = var.name
-  })
 }
 
 resource "aws_security_group" "this" {

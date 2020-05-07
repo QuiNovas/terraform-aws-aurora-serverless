@@ -20,7 +20,7 @@ resource "aws_rds_cluster" "default" {
   storage_encrypted                   = var.storage_encrypted
   replication_source_identifier       = var.replication_source_identifier
   apply_immediately                   = var.apply_immediately
-  db_subnet_group_name                = aws_db_subnet_group.this.id
+  db_subnet_group_name                = module.vpc.database_subnet_group
   db_cluster_parameter_group_name     = var.db_cluster_parameter_group_name
   kms_key_id                          = var.kms_key_id
   iam_roles                           = var.iam_roles

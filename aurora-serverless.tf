@@ -50,7 +50,6 @@ resource "aws_rds_cluster" "default" {
   vpc_security_group_ids = flatten([aws_security_group.this.id,
     var.vpc_security_group_ids,
   ])
-
 }
 
 

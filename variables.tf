@@ -16,12 +16,6 @@ variable "apply_immediately" {
   default     = false
 }
 
-variable "auto_minor_version_upgrade" {
-  description = "Determines whether minor engine upgrades will be performed automatically in the maintenance window"
-  type        = bool
-  default     = true
-}
-
 variable "backtrack_window" {
   description = "The target backtrack window, in seconds. Only available for aurora engine currently. To disable backtracking, set this value to 0. Defaults to 0. Must be between 0 and 259200 (72 hours)"
   type        = number
@@ -51,7 +45,6 @@ variable "db_cluster_parameter_group_name" {
   type        = string
   default     = ""
 }
-
 
 variable "db_parameter_group_name" {
   description = "The name of a DB parameter group to use. Default groups are created if not provided"
@@ -99,12 +92,6 @@ variable "global_cluster_identifier" {
   default     = ""
 }
 
-variable "glue_etl" {
-  description = "Enable to create glue connection with the aurora"
-  type        = string
-  default     = false
-}
-
 variable "iam_database_authentication_enabled" {
   description = "Specifies whether IAM Database authentication should be enabled or not. Not all versions and instances are supported. Refer to the AWS documentation to see which versions are supported."
   type        = bool
@@ -134,23 +121,6 @@ variable "name" {
   type        = string
 }
 
-variable "performance_insights_enabled" {
-  description = "Specifies whether Performance Insights is enabled or not."
-  type        = bool
-  default     = false
-}
-
-variable "performance_insights_kms_key_id" {
-  description = "The ARN for the KMS key to encrypt Performance Insights data."
-  type        = string
-  default     = ""
-}
-
-variable "predefined_metric_type" {
-  description = "The metric type to scale on. Valid values are RDSReaderAverageCPUUtilization and RDSReaderAverageDatabaseConnections."
-  default     = "RDSReaderAverageCPUUtilization"
-}
-
 variable "preferred_backup_window" {
   description = "When to perform DB backups"
   type        = string
@@ -161,54 +131,6 @@ variable "preferred_maintenance_window" {
   description = "When to perform DB maintenance"
   type        = string
   default     = "sun:05:00-sun:06:00"
-}
-
-variable "replica_scale_connections" {
-  description = "Average number of connections to trigger autoscaling at. Default value is 70% of db.r4.large's default max_connections"
-  type        = number
-  default     = 700
-}
-
-variable "replica_scale_cpu" {
-  description = "CPU usage to trigger autoscaling at"
-  type        = number
-  default     = 70
-}
-
-variable "replica_scale_enabled" {
-  description = "Whether to enable autoscaling for RDS Aurora (MySQL) read replicas"
-  type        = bool
-  default     = false
-}
-
-variable "replica_scale_in_cooldown" {
-  description = "Cooldown in seconds before allowing further scaling operations after a scale in"
-  type        = number
-  default     = 300
-}
-
-
-variable "replica_scale_max" {
-  description = "Maximum number of replicas to allow scaling for"
-  type        = number
-  default     = 0
-}
-
-variable "replica_scale_min" {
-  description = "Minimum number of replicas to allow scaling for"
-  type        = number
-  default     = 2
-}
-
-variable "replica_scale_out_cooldown" {
-  description = "Cooldown in seconds before allowing further scaling operations after a scale out"
-  type        = number
-  default     = 300
-}
-
-variable "replication_source_identifier" {
-  description = "ARN of a source DB cluster or DB instance if this DB cluster is to be created as a Read Replica."
-  default     = ""
 }
 
 variable "scaling_configuration" {
@@ -262,69 +184,3 @@ variable "vpc_security_group_ids" {
   type        = list(string)
   default     = []
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

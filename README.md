@@ -18,7 +18,6 @@ module "aurora_serverless" {
   engine_version          = "10.7"
   monitoring_interval     = 10
   name                    = "test-postgresql"
-  replica_scale_enabled   = false
 
   scaling_configuration = {
     auto_pause               = false

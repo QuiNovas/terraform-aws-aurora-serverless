@@ -133,6 +133,12 @@ variable "preferred_maintenance_window" {
   default     = "sun:05:00-sun:06:00"
 }
 
+variable "replication_source_identifier" {
+  description = "ARN of a source DB cluster or DB instance if this DB cluster is to be created as a Read Replica."
+  type        = string
+  default     = ""
+}
+
 variable "scaling_configuration" {
   description = "Map of nested attributes with scaling properties. Only valid when engine_mode is set to `serverless`"
   type        = map(string)

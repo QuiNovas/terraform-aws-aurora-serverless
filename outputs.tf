@@ -33,11 +33,15 @@ output "database_subnet_group" {
   value       = module.vpc.database_subnet_group
 }
 
+output "database_subnet_arns" {
+  description = "List of ARNs of database subnets"
+  value       = module.vpc.database_subnet_arns
+}
+
 output "database_subnets" {
   description = "List of IDs of database subnets"
   value       = module.vpc.database_subnets
 }
-
 
 output "hosted_zone_id" {
   description = "The Route53 Hosted Zone ID of the endpoint"
@@ -54,16 +58,19 @@ output "rds_instance_endpoint" {
   value       = aws_rds_cluster.default.endpoint
 }
 
-
 output "security_group_id" {
   description = "The SG of the cluster"
   value       = aws_security_group.this.id
 }
 
-
 output "vpc_arn" {
   description = "The ID of the VPC"
   value       = module.vpc.vpc_arn
+}
+
+output "vpc_cidr_block" {
+  description = "The CIDR block of the VPC"
+  value       = module.vpc.vpc_cidr_block
 }
 
 output "vpc_id" {
@@ -71,28 +78,7 @@ output "vpc_id" {
   value       = module.vpc.vpc_id
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+output "vpc_name" {
+  description = "The name of the VPC that was passed in"
+  value       = module.vpc.name
+}

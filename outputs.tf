@@ -43,6 +43,16 @@ output "database_subnets" {
   value       = module.vpc.database_subnets
 }
 
+output "db_postgre_parameter_group_name {
+  description = "name of postgre db parameter group"
+  value       = aws_db_parameter_group.aurora_db_postgres_parameter_group.id
+}
+
+output "db_mysql_parameter_group_name {
+  description = "name of mysql db parameter group"
+  value       = aws_db_parameter_group.aurora_db_mysql_parameter_group.id          
+}
+
 output "hosted_zone_id" {
   description = "The Route53 Hosted Zone ID of the endpoint"
   value       = aws_rds_cluster.default.hosted_zone_id

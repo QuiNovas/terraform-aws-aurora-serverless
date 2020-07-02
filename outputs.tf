@@ -43,12 +43,12 @@ output "database_subnets" {
   value       = module.vpc.database_subnets
 }
 
-output "db_postgre_parameter_group_name {
+output "db_postgre_parameter_group_name" {
   description = "name of postgre db parameter group"
   value       = aws_db_parameter_group.aurora_db_postgres_parameter_group.id
 }
 
-output "db_mysql_parameter_group_name {
+output "db_mysql_parameter_group_name" {
   description = "name of mysql db parameter group"
   value       = aws_db_parameter_group.aurora_db_mysql_parameter_group.id          
 }

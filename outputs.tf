@@ -48,11 +48,6 @@ output "db_cluster_parameter_group_name" {
   value       = local.db_cluster_parameter_group_name
 }
 
-output "db_parameter_group_name" {
-  description = "name of db parameter group"
-  value       = local.db_parameter_group_name
-}
-
 output "hosted_zone_id" {
   description = "The Route53 Hosted Zone ID of the endpoint"
   value       = aws_rds_cluster.default.hosted_zone_id

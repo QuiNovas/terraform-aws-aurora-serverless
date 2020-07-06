@@ -43,6 +43,11 @@ output "database_subnets" {
   value       = module.vpc.database_subnets
 }
 
+output "db_cluster_parameter_group_name" {
+  description = "name of db cluster parameter group"
+  value       = local.db_cluster_parameter_group_name
+}
+
 output "db_parameter_group_name" {
   description = "name of db parameter group"
   value       = local.db_parameter_group_name
